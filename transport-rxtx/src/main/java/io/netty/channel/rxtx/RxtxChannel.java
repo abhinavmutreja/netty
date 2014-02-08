@@ -133,6 +133,9 @@ public class RxtxChannel extends OioByteStreamChannel {
         public void connect(
                 final SocketAddress remoteAddress,
                 final SocketAddress localAddress, final ChannelPromise promise) {
+            if (checkCancelled(promise)) {
+                return;
+            }
             if (!ensureOpen(promise)) {
                 return;
             }
